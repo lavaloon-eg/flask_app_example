@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h2>Welcome to the Home Page</h2>
+<p>This is the home page of my Flask app.</p>
+
+    <button onclick="get_customer_info()">Get Data from Customer's endpoint</button>
+    <button onclick="get_product_info()">Get Data from Product's endpoint</button>
+    <div id="result"></div>
+
+    <script>
+        function get_customer_info() {
+            fetch('/api/customer/get_customer_name')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('result').innerText = data.customer_first_name;
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        function get_product_info() {
+            fetch('/api/product/get_info')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('result').innerText = data.name;
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+{% endblock %}
